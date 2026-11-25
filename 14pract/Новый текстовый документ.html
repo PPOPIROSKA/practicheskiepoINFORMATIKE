@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberpunk 2077 | Киберпространство</title>
+    <style>
+        /* ================= СТИЛИ (КИСЛОТНЫЙ ЗЕЛЕНЫЙ / ЧЕРНЫЙ) ================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000;
+            color: #ccff00;
+            font-family: 'Courier New', Courier, monospace; /* Шрифт под киберпанк */
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-bottom: 2px solid #ccff00;
+            background-color: #0a0a0a;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .logo span {
+            color: #ccff00;
+            text-shadow: 0 0 10px #ccff00;
+        }
+
+        nav a {
+            color: #ccff00;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: bold;
+            padding: 8px 15px;
+            border: 1px solid transparent;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        nav a:hover, nav a.active {
+            background-color: #ccff00;
+            color: #000;
+            box-shadow: 0 0 15px #ccff00;
+        }
+
+        /* Контейнер для страниц */
+        .page {
+            display: none; /* Скрываем все по умолчанию */
+            padding: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+        }
+
+        .page.active {
+            display: block; /* Показываем активную */
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1, h2 {
+            color: #fff;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            border-left: 5px solid #ccff00;
+            padding-left: 15px;
+        }
+
+        h1 { font-size: 2.2rem; text-shadow: 0 0 15px rgba(204, 255, 0, 0.5); }
+        
+        p { margin-bottom: 15px; color: #d4ffb0; }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+            border: 1px dashed #ccff00;
+            background: #050505;
+        }
+
+        .main-img {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+            border: 1px solid #333;
+            box-shadow: 0 0 20px rgba(204, 255, 0, 0.2);
+            filter: contrast(1.2) sepia(0.5) hue-rotate(50deg); /* Легкий киберпанк фильтр */
+            transition: filter 0.3s, box-shadow 0.3s;
+        }
+
+        .main-img:hover {
+            filter: none;
+            box-shadow: 0 0 30px rgba(204, 255, 0, 0.6);
+        }
+
+        /* Галерея */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border: 1px solid #ccff00;
+            transition: transform 0.3s, box-shadow 0.3s;
+            filter: grayscale(50%) contrast(1.2);
+        }
+
+        .gallery-grid img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #ccff00;
+            filter: none;
+            z-index: 10;
+            position: relative;
+        }
+
+        /* Таблица */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: #0a0a0a;
+            border: 1px solid #333;
+        }
+
+        th, td {
+            border: 1px solid #333;
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #ccff00;
+            color: #000;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        tr:hover td {
+            background-color: #111;
+            color: #fff;
+        }
+
+        /* Форма */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #fff;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            background-color: #050505;
+            border: 1px solid #333;
+            color: #ccff00;
+            font-family: inherit;
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #ccff00;
+            box-shadow: 0 0 10px rgba(204, 255, 0, 0.5);
+        }
+
+        .btn {
+            background-color: #ccff00;
+            color: #000;
+            border: none;
+            padding: 15px 40px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-family: inherit;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px rgba(204, 255, 0, 0.3);
+        }
+
+        .btn:hover {
+            background-color: #fff;
+            box-shadow: 0 0 20px #fff;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #333;
+            color: #666;
+            font-size: 0.9rem;
+            background-color: #0a0a0a;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ШАПКА САЙТА И НАВИГАЦИЯ -->
+    <header>
+        <div class="logo">CYBER<span>PUNK</span></div>
+        <nav>
+            <a onclick="showPage('home')" id="nav-home" class="active">Главная</a>
+            <a onclick="showPage('gallery')" id="nav-gallery">Банды</a>
+            <a onclick="showPage('contact')" id="nav-contact">Связаться</a>
+        </nav>
+    </header>
+
+    <!-- СТРАНИЦА 1: ГЛАВНАЯ -->
+    <div id="page-home" class="page active">
+        <section class="hero">
+            <h1>Добро пожаловать в Найт-Сити</h1>
+            <p>Город возможностей. Город опасностей. Твой путь начинается здесь.</p>
+        </section>
+
+        <section class="content-block">
+            <h2>О проекте</h2>
+            <p>Этот терминал содержит базу данных по основным фракциям и кибер-имплантам Найт-Сити. Осторожно, данные могут быть повреждены корпоративными вирусами.</p>
+            <img src="https://images.unsplash.com/photo-1605806616949-1e87b487cb2a?q=80&w=1000&auto=format&fit=crop" alt="Найт-Сити" class="main-img">
+        </section>
+    </div>
+
+    <!-- СТРАНИЦА 2: БАНДЫ И ТАБЛИЦА -->
+    <div id="page-gallery" class="page">
+        <h2>Фракции и Банды</h2>
+        <p>Кто контролирует улицы:</p>
+        
+        <div class="gallery-grid">
+            <!-- Картинки -->
+            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=400&auto=format&fit=crop" alt="Кибер-имплант">
+            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=400&auto=format&fit=crop" alt="Неон">
+            <img src="https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?q=80&w=400&auto=format&fit=crop" alt="Город">
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=400&auto=format&fit=crop" alt="Технологии">
+        </div>
+
+        <h2>Статус группировок</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Банда</th>
+                    <th>Территория</th>
+                    <th>Уровень угрозы</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>01</td>
+                    <td>Мальстрём</td>
+                    <td>Уотсон</td>
+                    <td>Высокий</td>
+                </tr>
+                <tr>
+                    <td>02</td>
+                    <td>Тигриные когти</td>
+                    <td>Кабуки</td>
+                    <td>Средний</td>
+                </tr>
+                <tr>
+                    <td>03</td>
+                    <td>Анималс</td>
+                    <td>Пасифика</td>
+                    <td>Критический</td>
+                </tr>
+                <tr>
+                    <td>04</td>
+                    <td>Вудуисты</td>
+                    <td>Пасифика</td>
+                    <td>Высокий</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- СТРАНИЦА 3: КОНТАКТЫ И ФОРМА -->
+    <div id="page-contact" class="page">
+        <h2>Связь с Фиксером</h2>
+        <p>Оставьте заявку на выполнение контракта. Мы свяжемся с вами через зашифрованный канал.</p>
+        
+        <form id="feedbackForm">
+            <div class="form-group">
+                <label for="name">Уличное имя (Псевдоним):</label>
+                <input type="text" id="name" required placeholder="Ви">
+            </div>
+            <div class="form-group">
+                <label for="email">Контактный нетраннер (Email):</label>
+                <input type="email" id="email" required placeholder="v@nightcity.net">
+            </div>
+            <div class="form-group">
+                <label for="role">Ваша роль:</label>
+                <select id="role">
+                    <option value="solo">Соло (Наемник)</option>
+                    <option value="netrunner">Нетраннер (Хакер)</option>
+                    <option value="techie">Техник (Инженер)</option>
+                    <option value="medtech">Медтех (Врач)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="message">Суть контракта:</label>
+                <textarea id="message" rows="5" required placeholder="Нужно выкрасть прототип из Арасаки..."></textarea>
+            </div>
+            <button type="submit" class="btn">Отправить запрос</button>
+        </form>
+        
+        <div id="formStatus" style="margin-top: 20px; color: #ccff00; font-size: 1.2rem; font-weight: bold; display: none; text-shadow: 0 0 10px #ccff00;">
+            > СИГНАЛ ОТПРАВЛЕН. ЖДИТЕ СВЯЗИ.
+        </div>
+    </div>
+
+    <!-- ПОДВАЛ -->
+    <footer>
+        <p>&copy; 2077 Night City. Все права защищены. Практическая работа № 14.</p>
+    </footer>
+
+    <!-- JAVASCRIPT ДЛЯ РАБОТЫ САЙТА -->
+    <script>
+        // Функция переключения страниц
+        function showPage(pageId) {
+            // Скрываем все страницы
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+
+            // Убираем активный класс у всех кнопок навигации
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => link.classList.remove('active'));
+
+            // Показываем нужную страницу
+            document.getElementById('page-' + pageId).classList.add('active');
+
+            // Делаем кнопку навигации активной
+            document.getElementById('nav-' + pageId).classList.add('active');
+        }
+
+        // Обработка формы
+        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Отменяем стандартную отправку (перезагрузку страницы)
+            
+            // Скрываем форму
+            this.style.display = 'none';
+            
+            // Показываем сообщение об успехе
+            document.getElementById('formStatus').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
